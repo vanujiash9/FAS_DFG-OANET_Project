@@ -1,0 +1,61 @@
+BASE_DIR: ../../..
+
+# --- THƯ MỤC DỮ LIỆU THÔ ---
+RAW_DATA_DIR: data/raw
+FFHQ_RAW_DIR: ${RAW_DATA_DIR}/ffhq
+CELEBA_SPOOF_RAW_DIR: ${RAW_DATA_DIR}/celeba_spoof
+CELEBA_SPOOF_LIVE_FRAMES_DIR: ${CELEBA_SPOOF_RAW_DIR}/live_frames
+CELEBA_SPOOF_RAW_SPOOF_ROOT_DIR: ${CELEBA_SPOOF_RAW_DIR}/raw_data
+CELEBA_SPOOF_SPOOF_FRAMES_DIR: ${CELEBA_SPOOF_RAW_DIR}/spoof_frames
+CELEBA_SPOOF_LABELS_PATH: ${CELEBA_SPOOF_RAW_DIR}/labels.json
+
+# --- THƯ MỤC DỮ LIỆU ĐÃ XỬ LÝ ---
+PROCESSED_DATA_DIR: data/processed
+DFG_REAL_FACES_TRAIN_DIR: ${PROCESSED_DATA_DIR}/dfg_real_faces/train
+DFG_REAL_FACES_VAL_DIR: ${PROCESSED_DATA_DIR}/dfg_real_faces/val
+OANET_SPLITS_PATH: ${PROCESSED_DATA_DIR}/oanet_splits.json
+ANOMALOUS_CUES_DIR: ${PROCESSED_DATA_DIR}/anomalous_cues
+CELEBA_SPOOF_CUES_TRAIN_DIR: ${ANOMALOUS_CUES_DIR}/celeba_spoof_train
+CELEBA_SPOOF_CUES_VAL_DIR: ${ANOMALOUS_CUES_DIR}/celeba_spoof_val
+CELEBA_SPOOF_CUES_TEST_DIR: ${ANOMALOUS_CUES_DIR}/celeba_spoof_test
+TEMP_DIR: data/temp
+
+# --- DFG TRAINING PATHS (mapping to existing structure) ---
+DFG_TRAIN_DIR: data/splits_pt/dfg/train
+DFG_VAL_DIR: data/splits_pt/dfg/val
+DFG_TEST_DIR: data/splits_pt/oan/test
+
+# --- OANET PATHS ---
+OANET_TRAIN_LIVE_DIR: data/splits_pt/oan/train/live
+OANET_TRAIN_SPOOF_DIR: data/splits_pt/oan/train/spoof
+OANET_VAL_LIVE_DIR: data/splits_pt/oan/val/live
+OANET_VAL_SPOOF_DIR: data/splits_pt/oan/val/spoof
+OANET_TEST_LIVE_DIR: data/splits_pt/oan/test/live
+OANET_TEST_SPOOF_DIR: data/splits_pt/oan/test/spoof
+
+# --- CÁC THAM SỐ KHÁC ---
+DFG_IMAGE_SIZE: 224
+OANET_IMAGE_SIZE: 224
+FACE_ALIGNMENT_MARGIN_RATIO: 0.1
+NUM_DATALOADER_WORKERS: 32
+FFHQ_DOWNLOAD_COUNT: 2250
+CELEBA_LIVE_DOWNLOAD_COUNT: 35000
+CELEBA_SPOOF_DOWNLOAD_COUNT: 35000
+OANET_SELECTED_LIVE_CELEBA_COUNT: 35000
+
+# --- TRAINING PARAMETERS ---
+DFG_BATCH_SIZE: 4
+DFG_EPOCHS: 50
+DFG_LEARNING_RATE: 0.0001
+
+# --- MODEL PATHS ---
+ARCFACE_MODEL_PATH: checkpoints/arcface_iresnet50/ArcFace_iResNet50_CASIA_FaceV5.pth
+DIFFUSION_MODEL_PATH: checkpoints/diffusion
+OUTPUT_DIR: outputs
+LOG_DIR: logs
+
+# --- DEVICE CONFIG ---
+DEVICE: cuda
+NUM_WORKERS: 0
+PIN_MEMORY: true
+MIXED_PRECISION: true

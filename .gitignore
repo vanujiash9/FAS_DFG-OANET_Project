@@ -1,0 +1,49 @@
+# ==============================================================================
+# Git Ignore File cho Dự án Face Anti-Spoofing
+# ==============================================================================
+
+# 1. CÁC THƯ MỤC LỚN VÀ KẾT QUẢ SINH RA
+# ------------------------------------------------------------------------------
+# Thư mục chứa toàn bộ dữ liệu (raw, processed, cues...)
+data/
+
+# Thư mục chứa các model đã được huấn luyện
+checkpoints/
+
+# Thư mục chứa các kết quả (báo cáo, trực quan hóa, dự đoán...)
+results/
+
+# Thư mục chứa logs
+logs/
+
+# Thư mục uploads (nếu bạn dùng script predict tương tác)
+uploads/
+
+# Thư mục outputs (tôi thấy bạn có đề cập, nên thêm vào cho chắc)
+outputs/
+
+
+# 2. CÁC FILE MODEL LỚN VÀ FILE DEPLOYMENT
+# ------------------------------------------------------------------------------
+# Các file model pre-trained hoặc đã được huấn luyện
+*.pth
+*.onnx
+
+
+# 3. CÁC FILE VÀ THƯ MỤC CỦA PYTHON & VS CODE
+# ------------------------------------------------------------------------------
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*egg-info/
+
+# Virtual Environment
+.env
+.venv
+env/
+venv/
+
+# VS Code
+.vscode/
