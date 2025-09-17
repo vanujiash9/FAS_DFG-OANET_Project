@@ -1,6 +1,4 @@
-Dưới đây là phiên bản trình bày lại README/report dự án hệ thống FAS (AG-FAS: DFG & OA-Net) rõ ràng, hiện đại, cấu trúc chuyên nghiệp, nhấn mạnh khoa học – đẹp và súc tích đúng chuẩn dự án học thuật hoặc open source.
 
-***
 
 # Face Anti-Spoofing System with Generative Modeling (DFG & OA-Net)
 
