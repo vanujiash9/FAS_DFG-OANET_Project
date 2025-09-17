@@ -1,4 +1,4 @@
-
+<img width="2372" height="1764" alt="image" src="https://github.com/user-attachments/assets/cbb8d910-e386-46b9-81c6-61177f4ad9da" />
 # Hệ Thống Chống Giả Mạo Khuôn Mặt Sử Dụng Mô Hình Sinh Mẫu (DFG & OA-Net)
 
 ## Giới Thiệu Dự Án
@@ -52,7 +52,8 @@ Tập dữ liệu ban đầu bao gồm ba nguồn chính. Mô hình được hu�
 
 Tóm tắt cấp cao về dữ liệu thô trước khi xử lý:
 
-![Tổng số ảnh Thật và Giả mạo Gốc](results/charts/2_raw_live_vs_spoof.png)
+<img width="2372" height="1764" alt="image" src="https://github.com/user-attachments/assets/0ffd9fc2-6ac9-42fe-9528-971b391ab1ad" />
+
 
 ### 2. Sự Đa Dạng của Các Loại Tấn Công Giả Mạo
 
