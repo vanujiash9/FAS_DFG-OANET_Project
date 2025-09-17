@@ -1,6 +1,4 @@
-Dưới đây là mẫu README chuyên nghiệp cho dự án của bạn, tối ưu để dùng trên GitHub, báo cáo hoặc chia sẻ học thuật.
 
-***
 
 # Hệ Thống Face Anti-Spoofing AG-FAS (DFG & OA-Net)
 
