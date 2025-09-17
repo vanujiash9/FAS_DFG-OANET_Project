@@ -1,4 +1,4 @@
-<img width="2372" height="1764" alt="image" src="https://github.com/user-attachments/assets/cbb8d910-e386-46b9-81c6-61177f4ad9da" />
+
 # Hệ Thống Chống Giả Mạo Khuôn Mặt Sử Dụng Mô Hình Sinh Mẫu (DFG & OA-Net)
 
 ## Giới Thiệu Dự Án
