@@ -58,19 +58,22 @@ Tóm tắt cấp cao về dữ liệu thô trước khi xử lý:
 
 Bộ dữ liệu bao gồm nhiều loại hình tấn công giả mạo khác nhau, đảm bảo mô hình được huấn luyện để chống lại nhiều mối đe dọa.
 
-![Phân bố các Loại Tấn công Giả mạo Gốc](results/charts/2_spoof_type_distribution.png)
+<img width="2560" height="2042" alt="image" src="https://github.com/user-attachments/assets/08d20407-943b-4bc7-99dd-33ed56e2fc46" />
+
 
 ### 3. Dữ Liệu Đã Xử Lý để Huấn Luyện
 
 Sau giai đoạn DFG, các ảnh thô được chuyển đổi thành tín hiệu bất thường. Dữ liệu sau đó được cân bằng để ngăn chặn sự thiên vị của mô hình.
 
-![Số lượng Tín hiệu Bất thường Đã Xử lý](results/charts/3_processed_cues_count.png)
+<img width="2371" height="1764" alt="image" src="https://github.com/user-attachments/assets/18b06b1b-d034-42b7-8f21-10675240a0ad" />
+
 
 ### 4. Phân Chia Dữ Liệu Cuối Cùng
 
 Tập dữ liệu tín hiệu bất thường đã được cân bằng được chia thành các tập huấn luyện, kiểm định và kiểm tra theo tỷ lệ 80/10/10, đảm bảo rằng các chủ thể (subject) trong tập kiểm tra hoàn toàn không xuất hiện trong quá trình huấn luyện.
 
-![Thành phần Thật/Giả trong từng Tập Dữ liệu](results/charts/5_split_composition.png)
+<img width="2369" height="2374" alt="image" src="https://github.com/user-attachments/assets/9c8b579d-7177-44cc-85dd-aa35604ed4f2" />
+
 
 ---
 
@@ -99,7 +102,8 @@ Kết quả đánh giá cuối cùng mang lại các chỉ số hiệu suất sa
 
 Ma trận nhầm lẫn cung cấp một cái nhìn chi tiết về các dự đoán của mô hình trên 742 mẫu trong tập kiểm tra.
 
-![Heatmap Ma trận Nhầm lẫn](results/charts/6_confusion_matrix_heatmap.png)
+<img width="1925" height="1644" alt="image" src="https://github.com/user-attachments/assets/8a0a15f0-331a-47ff-b983-62ec18a5e3de" />
+
 
 **Phân tích:**
 -   **True Negatives (Thật -> Thật):** 301
