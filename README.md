@@ -47,7 +47,8 @@ Dự án sử dụng kết hợp bộ dữ liệu FFHQ và CelebA-Spoof. Dưới
 
 Tập dữ liệu ban đầu bao gồm ba nguồn chính. Mô hình được huấn luyện trên một tập hợp đa dạng các khuôn mặt thật để đảm bảo sự hiểu biết sâu sắc về "tính sống".
 
-![Phân tích Nguồn Dữ liệu Gốc](results/charts/3_raw_data_sources.png)
+<img width="2972" height="2064" alt="image" src="https://github.com/user-attachments/assets/228d82c8-b229-4261-a828-da18baa1869c" />
+
 
 Tóm tắt cấp cao về dữ liệu thô trước khi xử lý:
 
