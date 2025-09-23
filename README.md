@@ -1,90 +1,96 @@
 
 
-# Hệ Thống Face Anti-Spoofing AG-FAS (DFG & OA-Net)
+---
 
-## 🚀 Giới thiệu
+## 🚀 Hướng Dẫn Cài Đặt và Sử Dụng
 
-Hệ thống AG-FAS là giải pháp phát hiện giả mạo khuôn mặt hiện đại, áp dụng kiến trúc hai giai đoạn dựa trên mô hình sinh mẫu (DFG) và mạng phân loại attention (OA-Net). Mục đích của dự án là nhận diện hiệu quả mọi dạng tấn công spoof hiện đại, đồng thời giữ tỷ lệ báo động giả thấp cho người dùng thật.
+### 1. Yêu Cầu
+-   Python 3.8+
+-   PyTorch & Torchvision
+-   Hạ tầng GPU với CUDA (khuyến nghị 2 x 24GB VRAM cho huấn luyện)
+-   Các thư viện phụ: `pip install transformers diffusers opencv-python scikit-learn pandas matplotlib seaborn`
 
-- **Tác giả:** Bùi Thị Thanh Vân  
-- **Đơn vị:** Trường ĐH Giao thông Vận tải TPHCM  
-- **Email:** thanh.van19062004@gmail.com  
-- **Thực hiện:** 09/2025
+### 2. Cài Đặt
 
-***
+1.  **Clone kho mã nguồn:**
+    ```bash
+    git clone https://github.com/vanujiash9/FAS_DFG-OANET_Project.git
+    cd FAS_DFG-OANET_Project
+    ```
+2.  **(Tùy chọn) Tạo môi trường ảo:**
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # Trên Windows: venv\Scripts\activate
+    ```
+3.  **Cài đặt các thư viện:**
+    ```bash
+    pip install -r requirements.txt
+    ```
+4.  **Chuẩn bị mô hình tiền huấn luyện:**
+    -   Tải các file trọng số (`.pth`) cần thiết.
+    -   Đặt chúng vào các thư mục tương ứng trong `checkpoints/`.
 
-## ⚙️ Kiến trúc chính
+5.  **Chuẩn bị dữ liệu:**
+    -   Đặt dữ liệu thô vào `data/raw/`.
+    -   Chạy các script tiền xử lý và sinh cues, hoặc đặt các file cues đã được tạo sẵn vào `data/processed/anomalous_cues/`.
 
-### 1. Giai đoạn 1: De-fake Face Generator (DFG)
-- **Chỉ học trên ảnh thật:** DFG dựa Latent Diffusion Model, tái tạo lại khuôn mặt thuần túy từ input.
-- **Sinh anomalous cue:** So sánh tuyệt đối ảnh gốc – ảnh tái tạo, phát hiện vùng khác biệt (anomaly) – đặc biệt nhạy với spoof.
+### 3. Thực Thi
 
-### 2. Giai đoạn 2: OA-Net (Off-real Attention Network)
-- **Input:** Anomaly cue từ DFG  
-- **Backbone song song:**  
-   - **ViT-Base** (google/vit-base-patch16-224): Thu nhận quan hệ toàn cục từ cues.  
-   - **ResNet-18**: Trích xuất chi tiết cục bộ (biên, kết cấu).  
-- **Cross-Attention:** Kết hợp tính năng hai nhánh, giúp ViT tập trung vùng bất thường.
-- **Classifier:** Phân loại output của token [CLS] thành xác suất Live/Spoof.
+-   **Huấn luyện lại toàn bộ pipeline:**
+    ```bash
+    python3 src/scripts/run_full_pipeline.py
+    ```
+-   **Chỉ huấn luyện OA-Net (khi đã có cues):**
+    ```bash
+    python3 src/scripts/run_training_only.py
+    ```
+-   **Tạo báo cáo và trực quan hóa kết quả:**
+    ```bash
+    python3 src/scripts/generate_full_report.py
+    ```
+-   **Dự đoán trên ảnh/video mới:**
+    1.  Kéo/thả file vào thư mục `uploads/`.
+    2.  Chạy script ở chế độ tương tác:
+        ```bash
+        python3 src/scripts/predict.py
+        ```
 
-***
+---
 
-## 📊 Dữ liệu và pipeline
+## 📊 Kết Quả Thực Nghiệm
 
-- **Data nguồn:** CelebA-Spoof (70K live, 35K spoof), FFHQ (20K real).
-- **Tiền xử lý:** Cắt, resize 224x224, standardize, sinh cues anomaly.
-- **Chia tập:** 80% train, 10% val, 10% test, không trùng subject giữa các tập.
-- **Huấn luyện:** AdamW, ReduceLROnPlateau, Early Stopping, multi-GPU & AMP tối ưu tốc độ.
+Mô hình OA-Net được huấn luyện trên 7,420 mẫu cues và đánh giá trên 742 mẫu test chưa từng thấy.
 
-***
+### 1. Phân Tích Dữ Liệu
 
-## 🏆 Hiệu suất nổi bật
+| Phân Bố Nguồn Dữ Liệu Gốc | Phân Bố Các Loại Tấn Công | Phân Chia Dữ Liệu Cuối Cùng |
+| :---: | :---: | :---: |
+| ![Raw Data Sources Breakdown](results/charts/1_raw_data_sources.png) | ![Distribution of Original Spoof Attack Types](results/charts/4_spoof_type_distribution.png) | ![Final Dataset Split for OA-Net Training](results/charts/5_dataset_split_pie_chart.png) |
 
-- **Accuracy:** 84.1%
-- **APCER:** 6.85%
-- **BPCER:** 24.67%
-- **ACER:** 15.76%
-- **Checkpoint tốt nhất:** Epoch 4
-- **Tự động trực quan hóa:** Biểu đồ loss, confusion matrix, ROC, các ảnh cue so sánh live/spoof.
+### 2. Hiệu Suất Mô Hình
 
-***
+Mô hình đạt hiệu suất tốt nhất ở **Epoch 4** trước khi có dấu hiệu overfitting.
 
-## 🔬 Cài đặt & sử dụng
+#### Bảng Chỉ Số Đánh Giá
+| Chỉ Số | Giá Trị |
+| :--- | :---: |
+| **Accuracy** | **84.10%** |
+| **APCER** (Lỗi An ninh) | **6.85%** |
+| **BPCER** (Lỗi Trải nghiệm) | **24.67%** |
+| **ACER** | **15.76%** |
 
-### Yêu cầu
-- Python >=3.8, PyTorch >=1.10, Transformers, Diffusers, OpenCV, Pandas, Scikit-learn, Matplotlib
+#### Ma Trận Nhầm Lẫn
+![Confusion Matrix on Test Set](results/charts/6_confusion_matrix_heatmap.png)
 
-### Hướng dẫn nhanh
-```bash
-git clone https://github.com/vanujiash9/FAS_DFG-OANET_Project.git
-cd FAS_DFG-OANET_Project
-pip install -r requirements.txt
+**Phân tích:** Mô hình có khả năng phát hiện tấn công tốt (APCER thấp), nhưng điểm yếu lớn nhất là tỷ lệ từ chối nhầm người dùng thật (BPCER cao), nguyên nhân chính là do khả năng tổng quát hóa của mô hình DFG trên các ảnh thật có tư thế/điều kiện khó.
 
-# Huấn luyện toàn bộ pipeline
-python3 src/scripts/run_full_pipeline.py
+---
 
-# Tạo chỉ báo cáo và trực quan hóa dữ liệu
-python3 src/scripts/generate_full_report.py
-```
+## 💡 Kết Luận và Hướng Phát Triển
 
-***
+Dự án đã triển khai thành công một pipeline FAS phức tạp, chứng minh hiệu quả của hướng tiếp cận dựa trên tín hiệu bất thường trong việc phát hiện tấn công. Thách thức lớn nhất được xác định là khả năng tổng quát hóa của mô hình DFG.
 
-## 📈 Trực quan & phân tích
-
-- Biểu đồ các loại spoof
-- Loss curve, confusion matrix, ROC/AUC
-- So sánh ảnh gốc/tái tạo/cue cho live và spoof
-
-Tất cả kết quả lưu tại thư mục `results/`, thuận tiện kiểm định và báo cáo.
-
-***
-
-## 🌱 Hướng phát triển
-
-- Bổ sung đánh giá cross-domain trên tập OULU-NPU, MSU-MFSD
-- Mở rộng nhận diện deepfake, AR-filter
-- Distillation, tối ưu hóa mô hình chạy thiết bị thực
-
-***
-
-**Mọi đóng góp, ý kiến hoặc hợp tác nghiên cứu vui lòng liên hệ tác giả!**
+**Hướng phát triển trong tương lai:**
+1.  **Cải thiện DFG:** Huấn luyện lại DFG trên một tập dữ liệu thật đa dạng hơn về góc mặt, biểu cảm và điều kiện ánh sáng để giảm BPCER.
+2.  **Tối ưu hóa Tốc độ:** Nghiên cứu kỹ thuật **Chưng cất Kiến thức (Knowledge Distillation)** để tạo ra một phiên bản mô hình gọn nhẹ, có khả năng triển khai thời gian thực.
+3.  **Đánh giá Chéo Miền (Cross-Domain):** Kiểm tra mô hình trên các bộ dữ liệu hoàn toàn khác (ví dụ: OULU-NPU, MSU-MFSD) để đánh giá khả năng tổng quát hóa một cách nghiêm ngặt.
