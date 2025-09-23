@@ -1,5 +1,61 @@
 
+# Face Anti-Spoofing with Generative Models (DFG & ViT-based OA-Net)
 
+Đây là kho mã nguồn cho dự án nghiên cứu và triển khai một hệ thống Chống Giả mạo Khuôn mặt (Face Anti-Spoofing - FAS) tiên tiến, dựa trên kiến trúc hai giai đoạn: **De-fake Face Generator (DFG)** và **Off-real Attention Network (OA-Net)**.
+
+Dự án này khám phá việc sử dụng các mô hình sinh mẫu để tạo ra "tín hiệu bất thường" (Anomaly Cue) từ ảnh đầu vào. Các tín hiệu này sau đó được phân tích bởi một kiến trúc lai (hybrid) kết hợp Vision Transformer và Mạng Tích chập (CNN) để phân loại thật/giả.
+
+| Thông Tin      | Chi Tiết                                       |
+| -------------- | ---------------------------------------------- |
+| **Tác giả**    | Bùi Thị Thanh Vân                              |
+| **Trường**      | Đại học Giao thông Vận tải Thành phố Hồ Chí Minh |
+| **Ngành**      | Khoa học dữ liệu                               |
+| **Email**      | `thanh.van19062004@gmail.com`                  |
+
+---
+
+## 🏛️ Kiến Trúc và Phương Pháp Luận
+
+Hệ thống được xây dựng theo triết lý **phát hiện bất thường**. Thay vì học các đặc điểm của ảnh giả, mô hình được dạy để hiểu sâu sắc "một khuôn mặt thật trông như thế nào" và coi bất kỳ sai khác nào là dấu hiệu của sự giả mạo.
+
+**Luồng hoạt động tổng thể:**
+
+1.  **Giai đoạn 1: De-fake Face Generator (DFG)**
+    -   Sử dụng một **Latent Diffusion Model (LDM)** được huấn luyện chỉ trên dữ liệu khuôn mặt thật.
+    -   Mô hình này nhận một ảnh đầu vào và tái tạo lại một phiên bản "chuẩn thật" của khuôn mặt đó, với sự hỗ trợ của **ArcFace** để bảo toàn danh tính.
+    -   **Anomaly Cue** được tạo ra bằng cách lấy hiệu số tuyệt đối giữa ảnh gốc và ảnh tái tạo. Cue này sẽ sáng rực ở những vùng có dấu hiệu giả mạo.
+
+2.  **Giai đoạn 2: Off-real Attention Network (OA-Net)**
+    -   Đây là mô hình phân loại chính, chỉ nhận đầu vào là **Anomaly Cue** đã được tạo ra.
+    -   Sử dụng kiến trúc lai (hybrid) gồm **ViT-Base** (nắm bắt ngữ cảnh toàn cục) và **ResNet-18** (trích xuất đặc trưng cục bộ).
+    -   **12 lớp Cross-Attention** kết hợp thông tin từ hai luồng trên, giúp mô hình tập trung vào các vùng bằng chứng quan trọng nhất trước khi đưa ra quyết định cuối cùng.
+
+---
+
+## 📂 Cấu Trúc Thư Mục Dự Án
+FAS_project/
+├── checkpoints/ # Nơi lưu các file model đã huấn luyện (.pth)
+│ ├── dfg/
+│ └── oanet/
+├── configs/ # Các file cấu hình .yaml
+├── data/
+│ ├── raw/ # Dữ liệu gốc (FFHQ, CelebA-Spoof)
+│ └── processed/ # Dữ liệu đã qua xử lý
+│ └── anomalous_cues/ # Thư mục chứa các file cue (.pt)
+├── logs/ # Chứa các file log quá trình huấn luyện
+├── results/ # Thư mục chứa tất cả kết quả đầu ra
+│ ├── charts/ # Các biểu đồ phân tích
+│ ├── predictions/ # Kết quả dự đoán từ script predict.py
+│ └── ..._report.txt # Các file báo cáo tổng kết
+├── src/ # Toàn bộ mã nguồn của dự án
+│ ├── data_management/
+│ ├── models/
+│ ├── scripts/
+│ ├── training_utils/
+│ └── visualization/
+└── uploads/ # Thư mục để "upload" ảnh/video cần dự đoán
+code
+Code
 ---
 
 ## 🚀 Hướng Dẫn Cài Đặt và Sử Dụng
